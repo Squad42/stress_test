@@ -2,6 +2,7 @@ import config
 import consul
 import time
 import urllib.request
+import sys
 
 
 CONSUL_SERVER=None
@@ -15,14 +16,16 @@ while CONSUL_SERVER is None:
         CONSUL_SERVER = None
         print("Not able to connect to Consul server")
         time.sleep(3)
-       
+sys.stdout.flush()       
 stress=False        
 while True:
       
     index = None
     print("Reading stress_test key from consul server..")
+    sys.stdout.flush()
     index, data = CONSUL_SERVER.kv.get("stress_test", index=index)
     print("stress_test value successfully read from consul server..")
+    sys.stdout.flush()
     '''
     try:
         print("Reading stress_test key from consul server..")
@@ -43,7 +46,7 @@ while True:
     else:
         stress=False 
         print("Stress test OFF")
-        
+    sys.stdout.flush()    
     if not stress:
         time.sleep(10)  
     else:
@@ -59,7 +62,7 @@ while True:
                                                                       path))
                     time.sleep(1)
                     break
-            
+            sys.stdout.flush()
             for path in config.ENDPOINTS_IMAGECATALOGUE.split(";"):
                 try:
                     contents = urllib.request.urlopen("http://{}:{}{}".format(config.HOST_IMAGECATALOGUE,
@@ -71,3 +74,4 @@ while True:
                                                                       path))
                     time.sleep(1)
                     break    
+            sys.stdout.flush()                
