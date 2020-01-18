@@ -24,7 +24,7 @@ else:
 if "ENDPOINTS_IMAGEUPLOAD" in os.environ:
 	ENDPOINTS_IMAGEUPLOAD = os.environ["ENDPOINTS_IMAGEUPLOAD"]
 else:
-    ENDPOINTS_IMAGEUPLOAD = "/;/landing_page;"   
+    ENDPOINTS_IMAGEUPLOAD = "/;/landing_page"   
     
 
 

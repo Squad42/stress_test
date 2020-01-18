@@ -5,25 +5,34 @@ import urllib.request
 
 
 CONSUL_SERVER=None
-
+print("APP START")
 while CONSUL_SERVER is None:
     try:
+        print("Creating consul connection to {}:{}..".format(config.CONFIG_HOST,config.CONFIG_PORT))
         CONSUL_SERVER = consul.Consul(host=config.CONFIG_HOST,
-                                      port=config.CONFIG_PORT)
+                                      port=int(config.CONFIG_PORT))
     except:
         CONSUL_SERVER = None
         print("Not able to connect to Consul server")
         time.sleep(3)
        
 stress=False        
-while True:      
+while True:
+      
     index = None
+    print("Reading stress_test key from consul server..")
+    index, data = CONSUL_SERVER.kv.get("stress_test", index=index)
+    print("stress_test value successfully read from consul server..")
+    '''
     try:
+        print("Reading stress_test key from consul server..")
         index, data = CONSUL_SERVER.kv.get("stress_test", index=index)
+        print("stress_test value successfully read from consul server..")
     except:
         print("Consul connection error!")
         time.sleep(3)
         continue
+    '''    
     if data is not None:
         if "true" in str(data["Value"]).lower():
             stress=True
