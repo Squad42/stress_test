@@ -50,8 +50,8 @@ while True:
     if not stress:
         time.sleep(10)  
     else:
-        for i in range(10000):
-            for path in config.ENDPOINTS_IMAGEUPLOAD.split(";"):
+        for path in config.ENDPOINTS_IMAGEUPLOAD.split(";"):
+            for i in range(1000):
                 try:
                     contents = urllib.request.urlopen("http://{}:{}{}".format(config.HOST_IMAGEUPLOAD,
                                                                       config.PORT_IMAGEUPLOAD,
@@ -62,8 +62,9 @@ while True:
                                                                       path))
                     time.sleep(1)
                     break
-            sys.stdout.flush()
-            for path in config.ENDPOINTS_IMAGECATALOGUE.split(";"):
+        sys.stdout.flush()
+        for path in config.ENDPOINTS_IMAGECATALOGUE.split(";"):
+            for i in range(1000):
                 try:
                     contents = urllib.request.urlopen("http://{}:{}{}".format(config.HOST_IMAGECATALOGUE,
                                                                       config.PORT_IMAGECATALOGUE,
@@ -74,4 +75,4 @@ while True:
                                                                       path))
                     time.sleep(1)
                     break    
-            sys.stdout.flush()                
+        sys.stdout.flush()                
